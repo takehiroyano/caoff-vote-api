@@ -2,7 +2,7 @@ const axios = require('axios')
 const SPREADSHEET_API_URL = 'https://sheets.googleapis.com/v4/spreadsheets/'
 const SETTING_SHEET_NAME = '設定'
 const SETTING_SHEET_RANGES = ['r_title', 'r_body', 'r_hashtag', 'r_sheetname']
-const SONGS_SHEET_RANGE = 'A:B'
+const SONGS_SHEET_RANGE = 'A:C'
 
 exports.handler = async (event, context) => {
     let body
@@ -47,7 +47,8 @@ const getInfomation = async () => {
             (item, i) => {
                 return {
                     songTitle: item[0],
-                    animeTitle: item[1],
+                    artist: item[1],
+                    animeTitle: item[2],
                     id: i
                 }
             }

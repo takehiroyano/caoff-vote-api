@@ -62,11 +62,11 @@ describe('index.js test', () => {
         "range": "'2022年度'!A1:B5",
         "majorDimension": "ROWS",
         "values": [
-          ["title", "タイアップ"],
-          ["曲名1", "アニメタイトル1"],
-          ["曲名2", "アニメタイトル2"],
-          ["曲名3", "アニメタイトル3"],
-          ["曲名4", "アニメタイトル4"]
+          ["title", "Artist",  "タイアップ"],
+          ["曲名1", "歌手1", "アニメタイトル1"],
+          ["曲名2", "歌手2", "アニメタイトル2"],
+          ["曲名3", "歌手3", "アニメタイトル3"],
+          ["曲名4", "歌手4", "アニメタイトル4"]
         ]
       }
     }
@@ -75,17 +75,17 @@ describe('index.js test', () => {
       "body": "今年も\u003ca href=\"https://arcane.com/ja-jp/\" target=\"_blank\"\u003eCOUNTDOWN CAOFF\u003c/a\u003eが12月31日に開催されます。\u003cbr/\u003e\nそこで、2022年に発表されたアニソンの中で皆さんが良かったと思う曲ベスト10を決めたいと思います!!",
       "hashtag": "caoff2023",
       "songs": [
-        { songTitle: "曲名1", animeTitle: "アニメタイトル1", id: 0 },
-        { songTitle: "曲名2", animeTitle: "アニメタイトル2", id: 1 },
-        { songTitle: "曲名3", animeTitle: "アニメタイトル3", id: 2 },
-        { songTitle: "曲名4", animeTitle: "アニメタイトル4", id: 3 }
+        { songTitle: "曲名1", artist: "歌手1", animeTitle: "アニメタイトル1", id: 0 },
+        { songTitle: "曲名2", artist: "歌手2", animeTitle: "アニメタイトル2", id: 1 },
+        { songTitle: "曲名3", artist: "歌手3", animeTitle: "アニメタイトル3", id: 2 },
+        { songTitle: "曲名4", artist: "歌手4", animeTitle: "アニメタイトル4", id: 3 }
       ]
     }
     sandbox.stub(process.env, 'SPREADSHEET_ID').value('spid')
     sandbox.stub(process.env, 'SPREADSHEET_APP_KEY').value('12345')
     const axiosStub = sandbox.stub(axios, 'get')
     axiosStub.withArgs('https://sheets.googleapis.com/v4/spreadsheets/spid/values:batchGet', sinon.match.object).returns(expectedSettingResult)
-    axiosStub.withArgs('https://sheets.googleapis.com/v4/spreadsheets/spid/values/2021年度!A:B', sinon.match.object).returns(expectedSongsResult)
+    axiosStub.withArgs('https://sheets.googleapis.com/v4/spreadsheets/spid/values/2021年度!A:C', sinon.match.object).returns(expectedSongsResult)
     const result = await target.handler(event, context)
     assert.deepEqual({
       statusCode: '200',
